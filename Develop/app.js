@@ -18,6 +18,8 @@ const render = require("./lib/htmlRenderer");
 
 // Take the user inputs
 
+
+// Do while choice is anything but "no more entries" !== 
 const getUserInput = () => 
   inquirer.prompt([
 
@@ -42,6 +44,12 @@ const getUserInput = () =>
       name: 'role',
       choices: ["Intern", "Manager", "Engineer", "No more entries"]
     },
+
+    // if choice = Intern collect the School 
+    // if choice = Manager collect office Number
+    // if choice = ENgineer collect github
+
+
   ])
 
 getUserInput()
@@ -49,6 +57,11 @@ getUserInput()
           let employee = (data.name, data.employeeID, data.email);
     console.log(employee)
 })
+
+// somehow write this somewhere
+fs.writeFile(filename, JSON.stringify(data, null, '\t'), (err) =>
+err ? console.log(err) : console.log('Success!')
+);
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
