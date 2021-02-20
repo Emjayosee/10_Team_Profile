@@ -13,16 +13,12 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
-
+const teamMembers = []
 
 
 // Take the user inputs
-
-
-// Do while choice is anything but "no more entries" !== 
-const getUserInput = () => 
+const getManager = () => {
   inquirer.prompt([
-
     {
       type: 'input',
       name: 'name',
@@ -34,34 +30,82 @@ const getUserInput = () =>
       message: 'Enter the employee ID number.',
     },
     {
-      type: 'email',
+      type: 'input',
       message: 'Enter the employee email.',
       name: 'email',
     },
     {
-      type: 'list',
-      message: 'Enter the employee role.',
-      name: 'role',
-      choices: ["Intern", "Manager", "Engineer", "No more entries"]
+      type: 'input',
+      message: 'Enter the officeNumber',
+      name: 'officeNumber',
     },
 
-    // if choice = Intern collect the School 
-    // if choice = Manager collect office Number
-    // if choice = ENgineer collect github
+  ]).then(data => {
+    let employee = new Manager(data.name, data.id, data.email, data.officeNumber);
+    teamMembers.push(employee);
+    console.log(teamMembers)
+    addTeamMember();
+
+  })
+}
+
+getManager()
+
+const addTeamMember = () => {
+  inquirer.prompt([
+    {
+      type: "list",
+      name: "choice",
+      message: "which type of team member will you add?",
+      choices: ["Engineer", "Intern", "None"]
+    },
+  ]).then(data => {
+    if (data.choice == "Engineer") {
+      addEngineer()
+    }
+    else if (data.choice == "Intern") {
+      addIntern()
+    }
+    else {
+      createTeam()
+    }
+  })
+}
+
+const addEngineer = async () => (){
+  inquirer.prompt [
+    {
+      type: "input",
+      name: "github",
+      message: "Enter the E's github?",
+    }
+  ]
+}
+
+const addIntern = async () => (){
+  inquirer.prompt [
+    {
+      type: "input",
+      name: "school",
+      message: "Enter the I's school?",
+    }
+  ]
+}
+
+const createTeam = async () => (){
+    {
+      let intern = new intern (data.name, data.id, data.email, data.school);
+      let engineer = new engineer (data.name, data.id, data.email, data.github);
+      teamMembers.push(employee);
+      console.log(teamMembers)
+    }
+}
 
 
-  ])
-
-getUserInput()
-.then(data => {
-          let employee = (data.name, data.employeeID, data.email);
-    console.log(employee)
-})
-
-// somehow write this somewhere
-fs.writeFile(filename, JSON.stringify(data, null, '\t'), (err) =>
-err ? console.log(err) : console.log('Success!')
-);
+// // somehow write this somewhere
+// fs.writeFile(filename, JSON.stringify(data, null, '\t'), (err) =>
+// err ? console.log(err) : console.log('Success!')
+// );
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
@@ -81,4 +125,4 @@ err ? console.log(err) : console.log('Success!')
 // and Intern classes should all extend from a class named Employee; see the directions
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! ```
+// for the provided `render` function to work! 
