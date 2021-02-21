@@ -9,97 +9,92 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const { Console } = require("console");
 
+
+//  I set the templates up and with Luca's help tested them but cannot recall how we tested them.
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
-const teamMembers = []
+// const teamMembers = []
 
+let EmployeeDetailQuestions =[
+{
+  type: 'input',
+  name: 'name',
+  message: 'Enter employee name.',
+},
+{
+  type: 'input',
+  name: 'id',
+  message: 'Enter the employee ID number.',
+},
+{
+  type: 'input',
+  message: 'Enter the employee email.',
+  name: 'email',
+},
+{
+  type: "list",
+  name: "choice",
+  message: "Which type of team member will you add?",
+  choices: ["Manager", "Engineer", "Intern", "End Entries."]
+}
+]
+.then(answers => {
+  var addTeamMemberType = answers.choice
+
+  switch(addTeamMemberType) 
+{
+  case "Engineer":     
+      console.log(addTeamMemberType + " " + "Github");
+      goAgain()
+      break;
+  case "Manager":      
+      console.log(addTeamMemberType + " " + "Office");
+      goAgain()
+      break;
+  case "Intern":     
+      console.log(addTeamMemberType + " " + "School");
+      goAgain()
+      break;
+  case "End Entries.":     
+      console.log("Process Ended");
+      break;
+}
+});
 
 // Take the user inputs
-const getManager = () => {
-  inquirer.prompt([
-    {
-      type: 'input',
-      name: 'name',
-      message: 'Enter employee name.',
-    },
-    {
-      type: 'input',
-      name: 'id',
-      message: 'Enter the employee ID number.',
-    },
-    {
-      type: 'input',
-      message: 'Enter the employee email.',
-      name: 'email',
-    },
-    {
-      type: 'input',
-      message: 'Enter the officeNumber',
-      name: 'officeNumber',
-    },
+const getEmployeeDetails = (questions) => 
+  inquirer.prompt(questions)
+  
+  .then((answers) => {
+    
+    console.log(JSON.stringify(answers + EmployeeDetailedQuestions.answers.choice, null, '  '));
+    
+  goAgain();
+  }
+  );
 
-  ]).then(data => {
-    let employee = new Manager(data.name, data.id, data.email, data.officeNumber);
-    teamMembers.push(employee);
-    console.log(teamMembers)
-    addTeamMember();
+getEmployeeDetails(EmployeeDetailQuestions);
 
-  })
+
+function goAgain(){
+  getEmployeeDetails(EmployeeDetailQuestions);
 }
 
-getManager()
 
-const addTeamMember = () => {
-  inquirer.prompt([
-    {
-      type: "list",
-      name: "choice",
-      message: "which type of team member will you add?",
-      choices: ["Engineer", "Intern", "None"]
-    },
-  ]).then(data => {
-    if (data.choice == "Engineer") {
-      addEngineer()
-    }
-    else if (data.choice == "Intern") {
-      addIntern()
-    }
-    else {
-      createTeam()
-    }
-  })
-}
 
-const addEngineer = async () => (){
-  inquirer.prompt [
-    {
-      type: "input",
-      name: "github",
-      message: "Enter the E's github?",
-    }
-  ]
-}
 
-const addIntern = async () => (){
-  inquirer.prompt [
-    {
-      type: "input",
-      name: "school",
-      message: "Enter the I's school?",
-    }
-  ]
-}
 
-const createTeam = async () => (){
-    {
-      let intern = new intern (data.name, data.id, data.email, data.school);
-      let engineer = new engineer (data.name, data.id, data.email, data.github);
-      teamMembers.push(employee);
-      console.log(teamMembers)
-    }
-}
+// const createTeam = async () => (){
+//     {
+//       let intern = new intern (data.name, data.id, data.email, data.school);
+//       let engineer = new engineer (data.name, data.id, data.email, data.github);
+//       teamMembers.push(employee);
+//       console.log(teamMembers)
+//     }
+// }
 
 
 // // somehow write this somewhere
