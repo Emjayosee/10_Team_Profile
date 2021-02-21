@@ -34,43 +34,17 @@ let EmployeeDetailQuestions =[
   message: 'Enter the employee email.',
   name: 'email',
 },
-{
-  type: "list",
-  name: "choice",
-  message: "Which type of team member will you add?",
-  choices: ["Manager", "Engineer", "Intern", "End Entries."]
-}
+
 ]
-.then(answers => {
-  var addTeamMemberType = answers.choice
 
-  switch(addTeamMemberType) 
-{
-  case "Engineer":     
-      console.log(addTeamMemberType + " " + "Github");
-      goAgain()
-      break;
-  case "Manager":      
-      console.log(addTeamMemberType + " " + "Office");
-      goAgain()
-      break;
-  case "Intern":     
-      console.log(addTeamMemberType + " " + "School");
-      goAgain()
-      break;
-  case "End Entries.":     
-      console.log("Process Ended");
-      break;
-}
-});
-
+ 
 // Take the user inputs
 const getEmployeeDetails = (questions) => 
   inquirer.prompt(questions)
   
   .then((answers) => {
     
-    console.log(JSON.stringify(answers + EmployeeDetailedQuestions.answers.choice, null, '  '));
+    console.log(JSON.stringify(answers, null, '  '));
     
   goAgain();
   }
