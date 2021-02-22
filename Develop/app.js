@@ -35,54 +35,75 @@ let EmployeeDetailQuestions =[
 {
   type: "list",
   name: "choice",
-  message: "Which type of team member will you add?",
+  message: "Which is this team member's role?",
   choices: ["Manager", "Engineer", "Intern"]
 }
 ]
 
 // Take the user inputs
-function getEmployeeDetails(questions) {
-  inquirer.prompt(questions)
+async function getEmployeeDetails(questions) {
+  answers= await inquirer.prompt(questions)
 
-    .then((answers) => {
+    
       var type = answers.choice;
 
       switch (type) {
           case "Manager":
-          console.log(`\n Name: ${answers.name} \n ID: ${answers.id} \n Email: ${answers.email} \n Role:  ${answers.choice} \n Office:`);
+          getManagerOffice(answers)
           break;
         
           case "Engineer":
-          // getEngineerGithub()
-          // console.log(`\n Name: ${answers.name} \n ID: ${answers.id} \n Email: ${answers.email} \n Role:  ${answers.choice} \n GitHub Name: ${answers.GitHubName}`);
+          getEngineerGithub(answers)
+          // goAgain()
           break;
         
           case "Intern":
-          console.log(`\n Name: ${answers.name} \n ID: ${answers.id} \n Email: ${answers.email} \n Role:  ${answers.choice} \n School:`);
+          getInternSchool(answers)
           break;
       }
-      goAgain();
-      
-    }
-    );
 }
 
-const getEngineerGithub = () =>
-    inquirer.prompt([
-  {
-      type: "input",
-      name: "GitHubName",
-      message: "Enter the Engineer's GitHub Name?"
-  }
-])
-.then(answers => {
-    
-  console.log(answers.GitHubName);
+const getEngineerGithub = async (answers) =>{
+  
+  github= await inquirer.prompt([
+    {
+        type: "input",
+        name: "GitHubName",
+        message: "Enter the Engineer's GitHub Name?"
+    }
+  ])
+  console.log(`\n Name: ${answers.name} \n ID: ${answers.id} \n Email: ${answers.email} \n Role:  ${answers.choice} \n GitHub Name: ${github.GitHubName} \n`);
+  goAgain()
+}
 
-});
+const getManagerOffice = async (answers) =>{
+  
+  office = await inquirer.prompt([
+    {
+        type: "input",
+        name: "ManagerOffice",
+        message: "Enter the Manager's Office Number?"
+    }
+  ])
+  console.log(`\n Name: ${answers.name} \n ID: ${answers.id} \n Email: ${answers.email} \n Role:  ${answers.choice} \n GitHub Name: ${office.ManagerOffice} \n`);
+  goAgain()
+}
 
-const goAgain = () => 
-    inquirer.prompt([
+const getInternSchool = async (answers) =>{
+  
+  school = await inquirer.prompt([
+    {
+        type: "input",
+        name: "InternSchool",
+        message: "Enter the Intern's School?"
+    }
+  ])
+  console.log(`\n Name: ${answers.name} \n ID: ${answers.id} \n Email: ${answers.email} \n Role:  ${answers.choice} \n GitHub Name: ${school.InternSchool} \n`);
+  goAgain()
+}
+
+const goAgain = async () => 
+    await inquirer.prompt([
     {
         type: "list",
         name: "replay",
@@ -101,7 +122,6 @@ const goAgain = () =>
     console.log("Process Ended");
     }
 });
-
 
 
 getEmployeeDetails(EmployeeDetailQuestions);
