@@ -12,8 +12,6 @@ const render = require("./lib/htmlRenderer");
 const { Console } = require("console");
 
 
-//  I set the templates up and with Luca's help tested them but cannot recall how we tested them.
-
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 // const teamMembers = []
@@ -34,29 +32,79 @@ let EmployeeDetailQuestions =[
   message: 'Enter the employee email.',
   name: 'email',
 },
-
+{
+  type: "list",
+  name: "choice",
+  message: "Which type of team member will you add?",
+  choices: ["Manager", "Engineer", "Intern"]
+}
 ]
 
- 
 // Take the user inputs
-const getEmployeeDetails = (questions) => 
+function getEmployeeDetails(questions) {
   inquirer.prompt(questions)
-  
-  .then((answers) => {
-    
-    console.log(JSON.stringify(answers, null, '  '));
-    
-  goAgain();
-  }
-  );
 
-getEmployeeDetails(EmployeeDetailQuestions);
+    .then((answers) => {
+      var type = answers.choice;
 
-
-function goAgain(){
-  getEmployeeDetails(EmployeeDetailQuestions);
+      switch (type) {
+          case "Manager":
+          console.log(`\n Name: ${answers.name} \n ID: ${answers.id} \n Email: ${answers.email} \n Role:  ${answers.choice} \n Office:`);
+          break;
+        
+          case "Engineer":
+          // getEngineerGithub()
+          // console.log(`\n Name: ${answers.name} \n ID: ${answers.id} \n Email: ${answers.email} \n Role:  ${answers.choice} \n GitHub Name: ${answers.GitHubName}`);
+          break;
+        
+          case "Intern":
+          console.log(`\n Name: ${answers.name} \n ID: ${answers.id} \n Email: ${answers.email} \n Role:  ${answers.choice} \n School:`);
+          break;
+      }
+      goAgain();
+      
+    }
+    );
 }
 
+const getEngineerGithub = () =>
+    inquirer.prompt([
+  {
+      type: "input",
+      name: "GitHubName",
+      message: "Enter the Engineer's GitHub Name?"
+  }
+])
+.then(answers => {
+    
+  console.log(answers.GitHubName);
+
+});
+
+const goAgain = () => 
+    inquirer.prompt([
+    {
+        type: "list",
+        name: "replay",
+        message: "Do you want to add another employee?",
+        choices: ["Yes", "No"]
+    }
+])
+.then(answers => {
+    var replay = answers.replay;
+
+    if (replay === "Yes"){
+    
+    console.clear()
+    getEmployeeDetails(EmployeeDetailQuestions);
+    } else {
+    console.log("Process Ended");
+    }
+});
+
+
+
+getEmployeeDetails(EmployeeDetailQuestions);
 
 
 
