@@ -9,7 +9,7 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
-const { Console } = require("console");
+const team = [];
 
 
 // Write code to use inquirer to gather information about the development team members,
@@ -72,7 +72,9 @@ const getEngineerGithub = async (answers) =>{
         message: "Enter the Engineer's GitHub Name?"
     }
   ])
-  console.log(`\n Name: ${answers.name} \n ID: ${answers.id} \n Email: ${answers.email} \n Role:  ${answers.choice} \n GitHub Name: ${github.GitHubName} \n`);
+  let engineer = new Engineer(answers.name, answers.id, answers.email, github.GitHubName);
+  console.log(engineer);
+team.push(engineer)
   goAgain()
 }
 
@@ -85,7 +87,8 @@ const getManagerOffice = async (answers) =>{
         message: "Enter the Manager's Office Number?"
     }
   ])
-  console.log(`\n Name: ${answers.name} \n ID: ${answers.id} \n Email: ${answers.email} \n Role:  ${answers.choice} \n GitHub Name: ${office.ManagerOffice} \n`);
+  let manager = new Manager(answers.name, answers.id, answers.email, office.ManagerOffice);
+  team.push(manager)
   goAgain()
 }
 
@@ -98,7 +101,9 @@ const getInternSchool = async (answers) =>{
         message: "Enter the Intern's School?"
     }
   ])
-  console.log(`\n Name: ${answers.name} \n ID: ${answers.id} \n Email: ${answers.email} \n Role:  ${answers.choice} \n GitHub Name: ${school.InternSchool} \n`);
+  let intern = new Intern(answers.name, answers.id, answers.email, school.InternSchool);
+  console.log(intern);
+  team.push(intern)
   goAgain()
 }
 
@@ -120,46 +125,10 @@ const goAgain = async () =>
     getEmployeeDetails(EmployeeDetailQuestions);
     } else {
     console.log("Process Ended");
+    //"./output./team.html"
+      fs.writeFileSync(outputPath,render(team) )
     }
 });
 
 
 getEmployeeDetails(EmployeeDetailQuestions);
-
-
-
-
-// const createTeam = async () => (){
-//     {
-//       let intern = new intern (data.name, data.id, data.email, data.school);
-//       let engineer = new engineer (data.name, data.id, data.email, data.github);
-//       teamMembers.push(employee);
-//       console.log(teamMembers)
-//     }
-// }
-
-
-// // somehow write this somewhere
-// fs.writeFile(filename, JSON.stringify(data, null, '\t'), (err) =>
-// err ? console.log(err) : console.log('Success!')
-// );
-
-// After the user has input all employees desired, call the `render` function (required
-// above) and pass in an array containing all employee objects; the `render` function will
-// generate and return a block of HTML including templated divs for each employee!
-
-// After you have your html, you're now ready to create an HTML file using the HTML
-// returned from the `render` function. Now write it to a file named `team.html` in the
-// `output` folder. You can use the variable `outputPath` above target this location.
-// Hint: you may need to check if the `output` folder exists and create it if it
-// does not.
-
-// HINT: each employee type (manager, engineer, or intern) has slightly different
-// information; write your code to ask different questions via inquirer depending on
-// employee type.
-
-// HINT: make sure to build out your classes first! Remember that your Manager, Engineer,
-// and Intern classes should all extend from a class named Employee; see the directions
-// for further information. Be sure to test out each class and verify it generates an
-// object with the correct structure and methods. This structure will be crucial in order
-// for the provided `render` function to work! 
