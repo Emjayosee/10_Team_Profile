@@ -1,6 +1,7 @@
 # Assignment10
 
-This is the repo for Assignment 10 due February 5, 2021.
+This is the repo for Assignment 10 due February 16, 2021.
+To run the app (see video link below under Current Renderings) or from the command line in the Develop folder, install NPM and run [node app.js].
 
 # Unit 10: Team Profile Generator
 
@@ -51,11 +52,11 @@ Submitted: March 8, 2021, Michael O'Connor, 604 765 6061
 
 The presentation of the project requires a link to a separate file to validate the operation of the following: 
 
-            [x] A sample HTML file generated using the application must be submitted.
+            [X] A sample HTML file generated using the application must be submitted.
 
-            [x] The GitHub repository containing your application code.
+            [X] The GitHub repository containing your application code.
 
-            [x] A walkthrough video that demonstrates the functionality of the Team Profile Generator and passing tests must
+            [X] A walkthrough video that demonstrates the functionality of the Team Profile Generator and passing tests must
                  be submitted, and a link to the video should be included in your README file.
 
             [X] The walkthrough video must show all four tests passing from the command line.
@@ -94,12 +95,10 @@ The following topics were applied during the project:
 
 # 07 Current Renderings:
 
-![alt text]() 
-![alt text]()
-![alt text]()
-![alt text]()
-![alt text]()
-![alt text]()
+The deployed video can be found here: https://drive.google.com/file/d/1IDKo3DIfZmKxqFxjnHaRKBGbJNNrgCxj/view?usp=sharing
+
+![alt text](./Assets/team_html.png)
+
 
 # 08 Installation Instructions: 
 
